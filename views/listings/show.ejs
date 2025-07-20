@@ -1,18 +1,56 @@
-<% layout("/layouts/boilerplate")%>
-<body>
-  <h3>Listing Details :</h3>
-  <ul>
-    <li><%= listing.title %></li>
-    <li><%= listing.description %></li>
-    <li>&#8377;<%= listing.price.toLocaleString("en-IN") %></li>
-    <li><%= listing.location %></li>
-    <li><%= listing.country %></li>
-  </ul>
-  <br />
-  <br />
-  <a href="/listings/<%= listing._id %>/edit">Edit this Listing</a>
-  <br /><br />
-  <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
-    <button>Delete this listing</button>
-  </form>
-</body>
+<% layout("layouts/boilerplate") %>
+
+<div class="container mt-4">
+  <h3 class="mb-4">Listing Details</h3>
+
+  <div class="row">
+    <!-- Listing Image -->
+    <div class="col-md-6">
+      <img
+        src="<%= listing.image.url %>"
+        alt="<%= listing.title %>"
+        class="img-fluid rounded shadow"
+        style="max-height: 400px; object-fit: cover; width: 100%"
+      />
+    </div>
+
+    <!-- Listing Info -->
+    <div class="col-md-6">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <strong>Title:</strong> <%= listing.title %>
+        </li>
+        <li class="list-group-item">
+          <strong>Description:</strong> <%= listing.description %>
+        </li>
+        <li class="list-group-item">
+          <strong>Price:</strong> ₹<%= listing.price.toLocaleString("en-IN") %>
+        </li>
+        <li class="list-group-item">
+          <strong>Location:</strong> <%= listing.location %>
+        </li>
+        <li class="list-group-item">
+          <strong>Country:</strong> <%= listing.country %>
+        </li>
+      </ul>
+
+      <!-- Action Buttons -->
+      <div class="mt-4 d-flex gap-3">
+        <a href="/listings/<%= listing._id %>/edit" class="btn btn-danger"
+          >Edit this Listing</a
+        >
+        <form
+          method="POST"
+          action="/listings/<%= listing._id %>?_method=DELETE"
+        >
+          <button
+            class="btn btn-dark"
+            onclick="return confirm('Are you sure you want to delete this listing?')"
+          >
+            Delete this Listing
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
